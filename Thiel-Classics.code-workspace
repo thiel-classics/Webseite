@@ -1,0 +1,27 @@
+{
+  "folders": [{ "name": "Thiel Classics", "path": "." }],
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Website: Vorschau starten",
+        "type": "process",
+        "command": "node",
+        "args": ["scripts/serve.mjs"],
+        "options": { "cwd": "${workspaceFolder}" },
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": { "reveal": "always", "panel": "dedicated" }
+      },
+      {
+        "label": "Website: Dateien prüfen",
+        "type": "process",
+        "command": "node",
+        "args": ["scripts/check.mjs"],
+        "options": { "cwd": "${workspaceFolder}" },
+        "problemMatcher": [],
+        "group": { "kind": "test", "isDefault": true }
+      }
+    ]
+  }
+}

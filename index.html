@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <title>Thiel Classics – Klassiker mit Geschichte</title>
+  <script>
+    // GitHub Pages serves the repository root; the website lives in dist.
+    const website = new URL('./dist/', window.location.href);
+    website.search = window.location.search;
+    website.hash = window.location.hash;
+    window.location.replace(website.href);
+  </script>
+  <noscript><meta http-equiv="refresh" content="0; url=./dist/"></noscript>
+</head>
+<body>
+  <p><a href="./dist/">Thiel Classics öffnen</a></p>
+</body>
+</html>

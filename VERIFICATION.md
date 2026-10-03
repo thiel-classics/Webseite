@@ -1,16 +1,29 @@
-# Prüfung
+# Prüfung der Mehrseiten-Website
 
-Geprüft am 24. September 2026 in der lokalen Browser-Vorschau.
+Stand: 28. September 2026. Geprüft wurde das maßgebliche Zielrepository.
 
-- Layoutbreiten 320, 390, 768 und 1440 Pixel ohne horizontales Überlaufen.
-- Startseite, Automobile, Zweiräder, Referenzen, Über uns, Ankaufformular und Rechtstext-Platzhalter.
-- Mobile Navigation, Ankerlinks, Galerien, Bildwechsel und Schließen.
-- Pflichtfelder, ungültiges Baujahr und Fokus auf dem ersten fehlerhaften Feld.
-- Mehrfach-Bildauswahl mit Vorschauen, Entfernen eines Bildes.
-- Wechsel zur Datenschutzerklärung und zurück erhält Fahrzeugangaben und Bildauswahl.
-- Deaktivierter Echtversand zeigt ausdrücklich eine Vorschau-Bestätigung ohne Versandbehauptung.
-- Lokaler Testempfänger: Ladezustand verhindert doppelten Versand, HTTP-Fehler erhält Angaben, bestätigter Eingang zeigt Erfolgsansicht.
-- WebMCP: Werkzeug registriert, gültige Fahrzeugart öffnet Formular, ungültige Fahrzeugart wird abgelehnt.
-- Alle Bilder und Schriften lokal; JavaScript-Syntax und lokale Verweise werden durch `node scripts/check.mjs` geprüft.
+## Automatische Prüfung
 
-Die QA-Empfänger unter `/__qa/` existieren nur im lokalen Vorschau-Server. Sie speichern keine Daten und sind kein Teil des veröffentlichten Verzeichnisses `dist`. Ein tatsächlicher Versand an Thiel Classics wurde mangels Empfänger nicht durchgeführt.
+node scripts/check.mjs: erfolgreich. Sieben vollständige HTML-Seiten, konsistente Hauptnavigation, aktive Seitenmarkierungen, lokale Links/Anker, Bilddateien und Galerien, Schriften, IDs, Metadaten, JavaScript-Syntax und Formular-Konfiguration werden geprüft.
+
+## Browserprüfung
+
+- Die fünf Hauptseiten bei 320, 768 und 1024 Pixel Breite geprüft: keine horizontalen Überläufe. Zusätzlich Smartphone-Ansicht mit 390 Pixeln visuell geprüft.
+- Mobiles Menü per Tastatur geöffnet; echter Seitenwechsel zur Über-uns-Seite bestätigt.
+- Bilderring: Scrollbewegung, Pause, manuelle Pfeile, Stillstand nach Scrollende und Bilddialog geprüft. Kein Autoplay. Galeriewechsel und Fokusrückgabe nach dem Schließen funktionieren.
+- Kreidler-Zustandsvergleich: Tastatur-Endpunkte Home/End geprüft (0/100 Prozent); freigegebene Bildpaare erhalten.
+- Formular: Fahrzeugart aus URL, Pflichtfelder, E-Mail-Format, Baujahrgrenze, Fokus auf erstes Fehlerfeld, Bildvorschauen und Entfernen geprüft.
+- Zu große Dateien (über 9 MB), beschädigte Bilder, nicht unterstützte Dateitypen und mehr als sechs Bilder werden abgefangen.
+- Der vollständige native Multipart-POST mit allen benannten Feldern und sechs getrennten Anhängen wurde an einem ausschließlich lokalen, nicht speichernden QA-Empfänger bestätigt. Kein Formular-Test wurde an FormSubmit geschickt, keine E-Mail automatisch versendet.
+- Nach Rückkehr vom lokalen Versand: Textangaben erhalten, Senden wieder möglich, vom Browser erhaltene Datei wieder als Vorschau angezeigt. Datenschutz-Link öffnet einen separaten Tab.
+
+## Grenzen und Einrichtung
+
+- Der tatsächliche Versand über FormSubmit einschließlich Empfängeraktivierung, Sicherheitsabfrage und E-Mail-Eingang ist noch vom Betreiber zu prüfen. Anleitung: FORMULAR-EINRICHTEN.md.
+- Browser können Formulare bei Neuladen verwerfen. Es wird keine zusätzliche dauerhafte Speicherung eingeführt.
+- Reduzierte Bewegung ist in CSS und JavaScript berücksichtigt; eine Betriebssystem-Umschaltung wurde nicht vorgenommen. Touch-Darstellung wurde geprüft, ein physisches Smartphone stand für einen Gerätetest nicht zur Verfügung.
+- Unternehmensangaben und vollständige Datenschutzinformationen bleiben sichtbar markierte Ergänzungsstellen. Verfügbarkeit der Fotobeispiele wird nicht als zugesichert dargestellt.
+
+Gestaltungsprüfung nach den Vercel Web Interface Guidelines: native Seitenlinks, konsistente Navigation, Formular-Labels, inline Fehler, sichtbarer Fokus, Maus-/Tastaturalternativen, Bildabmessungen, lokale Schriften und reduzierte Bewegung berücksichtigt.
+
+Keine Commits, kein Push und kein Deployment durchgeführt.

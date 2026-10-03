@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2"><title>Fahrzeugankauf | Thiel Classics</title>
+  <meta name="description" content="Bieten Sie Thiel Classics Ihr klassisches Automobil oder Zweirad an. Fahrzeugdaten und Bilder einfach als persönliche Anfrage senden.">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="stylesheet" href="./assets/fonts.css"><link rel="stylesheet" href="./styles.css">
+  <link rel="preload" as="font" type="font/ttf" href="./assets/display-font-0.woff2" crossorigin>
+  
+  <script src="./config.js" defer></script><script src="./app.js" defer></script>
+</head><body data-page="ankauf">
+<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+<header class="header" id="header">
+  <a class="brand" href="./index.html" aria-label="Thiel Classics – Startseite"><img src="./assets/logo.webp" width="217" height="66" alt="Thiel Classics" translate="no"></a>
+  <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="./index.html">Startseite</a><a href="./ueber-uns.html">Über uns</a><a href="./zweiraeder.html">Zweiräder</a><a href="./automobile.html">Automobile</a><a href="./bestand.html">Unser Bestand</a><a href="./ankauf.html" class="active" aria-current="page">Ankauf</a></nav>
+  <a class="button header-cta" href="./ankauf.html">Fahrzeug anbieten <span aria-hidden="true">↗</span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"><span>Menü</span><i aria-hidden="true"></i></button>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation" hidden><a href="./index.html">Startseite</a><a href="./ueber-uns.html">Über uns</a><a href="./zweiraeder.html">Zweiräder</a><a href="./automobile.html">Automobile</a><a href="./bestand.html">Unser Bestand</a><a href="./ankauf.html" class="active" aria-current="page">Ankauf</a></nav>
+</header>
+<main id="inhalt" tabindex="-1"><section id="offer-view" class="offer wrap" aria-labelledby="offer-title">
+      <a href="./index.html" class="back-link">← Zurück zu Thiel Classics</a>
+      <div class="offer-heading"><div><span class="eyebrow">FAHRZEUGANKAUF / DEUTSCHLANDWEIT</span><h1 id="offer-title">ERZÄHLEN SIE UNS<br><em>von Ihrem Klassiker.</em></h1></div><p>Ein paar Informationen sind der Anfang. Nach Prüfung Ihres Angebots melden wir uns persönlich bei Ihnen.</p></div>
+      <div class="offer-layout"><aside class="offer-aside"><img src="./assets/porsche-front-640.webp" width="640" height="423" alt="Klassischer Porsche im Sonnenlicht"><h2>Besondere Fahrzeuge.<br>Persönlicher Kontakt.</h2><p>Wir suchen Oldtimer, Youngtimer und klassische Zweiräder in ganz Deutschland.</p><p>Beschreiben Sie auch bekannte Mängel und Besonderheiten. So können wir Ihr Fahrzeug besser kennenlernen.</p><span class="eyebrow">DIREKT. PERSÖNLICH. UNKOMPLIZIERT.</span></aside>
+      <div>
+      <form id="offer-form" action="https://formsubmit.co/thieltrading@web.de" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="_subject" value="Thiel Classics – Neues Fahrzeugangebot"><input type="hidden" name="_template" value="table"><div class="form-trap" aria-hidden="true"><label for="website-field">Dieses Feld leer lassen</label><input id="website-field" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+        <p class="form-hint">Mit * markierte Felder sind erforderlich.</p>
+        <fieldset><legend><span>01</span> Ihr Fahrzeug</legend>
+          <div class="field full"><span id="type-label" class="field-label">Fahrzeugart *</span><div class="type-options" role="group" aria-labelledby="type-label"><label><input type="radio" name="Fahrzeugart" value="Automobil" checked><span>Automobil</span></label><label><input type="radio" name="Fahrzeugart" value="Zweirad"><span>Zweirad</span></label></div></div>
+          <div class="form-grid">
+            <div class="field"><label for="manufacturer">Hersteller *</label><input id="manufacturer" name="Hersteller" required maxlength="80" placeholder="z. B. Porsche, BMW, Puch" autocomplete="off"><span class="field-error" id="manufacturer-error"></span></div>
+            <div class="field"><label for="model">Modell *</label><input id="model" name="Modell" autocomplete="off" required maxlength="100" placeholder="Modellbezeichnung"><span class="field-error" id="model-error"></span></div>
+            <div class="field"><label for="year">Baujahr</label><input id="year" name="Baujahr" type="number" min="1885" max="2026" step="1" placeholder="z. B. 1985" inputmode="numeric"><span class="field-error" id="year-error"></span></div>
+            <div class="field"><label for="mileage">Kilometerstand</label><div class="input-unit"><input id="mileage" name="Kilometerstand" type="number" min="0" max="9999999" step="1" placeholder="Falls bekannt" inputmode="numeric"><span>km</span></div><span class="field-error" id="mileage-error"></span></div>
+            <div class="field"><label for="location">Standort / Postleitzahl *</label><input id="location" name="Standort" required maxlength="120" placeholder="PLZ oder Ort" autocomplete="address-level2"><span class="field-error" id="location-error"></span></div>
+            <div class="field"><label for="condition">Zustand *</label><select id="condition" name="Zustand" required><option value="">Bitte auswählen</option><option>Restauriert</option><option>Gepflegter Originalzustand</option><option>Fahrbereit mit Gebrauchsspuren</option><option>Restaurierungsbedürftig</option><option>Projekt / nicht fahrbereit</option><option>Sonstiger Zustand</option></select><span class="field-error" id="condition-error"></span></div>
+            <div class="field full"><label for="price">Preisvorstellung</label><div class="input-unit"><input id="price" name="Preisvorstellung_EUR" type="number" min="0" max="99999999" step="1" inputmode="numeric" placeholder="Ihre Vorstellung, falls vorhanden"><span>€</span></div><span class="field-error" id="price-error"></span></div>
+            <div class="field full"><label for="description">Was sollten wir über Ihr Fahrzeug wissen?</label><textarea id="description" name="Beschreibung" autocomplete="off" rows="4" maxlength="5000" placeholder="Geschichte, Zustand, Besonderheiten, bekannte Mängel …"></textarea><span class="field-error" id="description-error"></span></div>
+          </div>
+        </fieldset>
+        <fieldset><legend><span>02</span> Ein erster Eindruck</legend><p class="form-hint">Gesamtansicht, Innenraum und Details helfen uns bei der Einschätzung.</p><div class="upload-zone" id="upload-zone"><span class="upload-mark" aria-hidden="true">+</span><label for="photos">Fahrzeugbilder auswählen</label><span>oder hierher ziehen</span><input type="file" name="attachment" id="photos" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photo-help photo-errors"><p id="photo-help">Bis zu 6 Bilder · JPG, PNG oder WebP · zusammen maximal 9 MB</p></div><p id="photo-errors" class="field-error" role="alert"></p><div id="photo-previews" class="photo-previews" aria-live="polite"></div></fieldset>
+        <fieldset><legend><span>03</span> So erreichen wir Sie</legend><div class="form-grid">
+          <div class="field"><label for="firstName">Vorname *</label><input id="firstName" name="Vorname" required maxlength="80" autocomplete="given-name"><span class="field-error" id="firstName-error"></span></div>
+          <div class="field"><label for="lastName">Nachname *</label><input id="lastName" name="Nachname" required maxlength="80" autocomplete="family-name"><span class="field-error" id="lastName-error"></span></div>
+          <div class="field"><label for="email">E-Mail-Adresse *</label><input id="email" name="email" type="email" spellcheck="false" required maxlength="254" placeholder="Ihre E-Mail-Adresse" autocomplete="email"><span class="field-error" id="email-error"></span></div>
+          <div class="field"><label for="phone">Telefonnummer</label><input id="phone" name="Telefonnummer" type="tel" maxlength="40" placeholder="Für ein persönliches Gespräch" autocomplete="tel"><span class="field-error" id="phone-error"></span></div>
+        </div></fieldset>
+        <label class="consent"><input id="consent" name="Datenschutzhinweise" type="checkbox" required><span>Ich habe die <a href="./datenschutz.html" target="_blank" rel="noopener">Datenschutzhinweise (neuer Tab)</a> gelesen und bin mit der Übermittlung meiner Angaben und Bilder über FormSubmit zur Bearbeitung meines Fahrzeugangebots einverstanden. *</span></label><span class="field-error" id="consent-error"></span>
+        <div id="form-status" class="form-status" role="status" tabindex="-1" hidden></div>
+        <button class="button red submit-button" type="submit"><span class="submit-label">Anfrage senden</span><span aria-hidden="true">↗</span></button>
+        <p class="form-hint" id="submit-hint">Ihre Anfrage wird über FormSubmit an thieltrading@web.de gesendet. Im nächsten Schritt kann eine Sicherheitsabfrage erscheinen.</p>
+      </form>
+      
+      </div></div>
+    </section></main>
+<footer><div class="wrap"><div class="footer-top"><a href="./index.html" class="brand"><img src="./assets/logo.webp" width="217" height="66" alt="Thiel Classics – Startseite" loading="lazy"></a><p>Automobile. Zweiräder.<br>Und die Begeisterung dazwischen.</p><a href="./ankauf.html" class="text-link">Fahrzeug anbieten <span aria-hidden="true">↗</span></a></div><div class="footer-bottom"><span>© <span id="copyright-year">2026</span> Thiel Classics</span><span>KLASSIKER MIT GESCHICHTE.</span><nav aria-label="Rechtliche Informationen"><a href="./impressum.html">Impressum</a><a href="./datenschutz.html">Datenschutz</a></nav><a href="#inhalt">Nach oben ↑</a></div></div></footer>
+<dialog id="gallery-dialog" class="gallery-dialog" aria-labelledby="gallery-title"><button type="button" class="dialog-close" aria-label="Bildansicht schließen">×</button><img class="gallery-image" width="1440" height="1600" alt=""><div class="gallery-info"><div><h2 id="gallery-title">Unsere Bildwelt</h2><p>Einblicke in unsere Leidenschaft für Klassiker.</p></div><div class="gallery-controls"><button type="button" data-direction="-1" aria-label="Vorheriges Bild">←</button><span class="gallery-count" aria-live="polite"></span><button type="button" data-direction="1" aria-label="Nächstes Bild">→</button></div></div></dialog>
+</body></html>

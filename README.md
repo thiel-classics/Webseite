@@ -1,36 +1,45 @@
 # Thiel Classics
 
-Für die Weiterarbeit in VS Code, den Upload zu GitHub und Hosting mit eigener Domain: [Schritt-für-Schritt-Anleitung](START-IN-VS-CODE.md). Der vorbereitete Arbeitsbereich heißt `Thiel-Classics.code-workspace`.
+Statische Website ohne Build-Abhängigkeiten. Die vollständigen HTML-Seiten und alle lokal eingebundenen Schriften/Bilder liegen in `dist`.
 
-Responsive Website mit bereitgestellten Fahrzeugbildern, einem freigegebenen interaktiven KI-Bildvergleich, lokal eingebundenen Schriften und ohne zusätzliche Bibliotheken.
+## Lokal arbeiten
 
-## Vorschau
+- Vorschau: `node scripts/serve.mjs`, dann `http://127.0.0.1:4173/` öffnen.
+- Prüfung: `node scripts/check.mjs`.
+- Falls der Port belegt ist: in PowerShell `$env:PORT=4174` setzen, dann die Vorschau starten.
 
-`node scripts/serve.mjs` startet die Website unter http://127.0.0.1:4173.
+## Seiten
 
-Die veröffentlichbaren Dateien liegen in `dist`. Die Navigation verwendet direkt verlinkbare Anker; das Fahrzeugangebot und rechtliche Seiten werden als eigene Ansichten angezeigt. Das Formular bleibt beim Wechsel zur Datenschutzerklärung erhalten. Ein Neuladen verwirft Eingaben und ausgewählte Bilder; es werden keine persönlichen Daten in localStorage gespeichert.
+- `dist/index.html`: ruhige Startseite, scrollgesteuerter Bilderring, Automobile/Zweiräder-Einstiege.
+- `dist/ueber-uns.html`: Begeisterung, Geschichte, Haltung, Qualität und persönliche Beratung.
+- `dist/zweiraeder.html`: Zweiräder, Suche, Verkauf, Restauration und freigegebener Kreidler-Zustandsvergleich.
+- `dist/automobile.html`: Automobile, Beratung, Vermittlung und Fotogalerien.
+- `dist/bestand.html`: filterbare Fahrzeugkarten, Kontaktlinks und Milchglas-Detailfenster. Zunächst gekennzeichnete Beispiele; Pflege in [BESTAND-PFLEGEN.md](BESTAND-PFLEGEN.md).
+- `dist/ankauf.html`: Anfrageformular mit optionalen Fahrzeugbildern.
+- `dist/impressum.html` und `dist/datenschutz.html`: eigene rechtliche Seiten, fehlende Betreiberangaben als Platzhalter markiert.
 
-## Vor öffentlicher Freigabe ergänzen
+Jede Seite hat vollständigen Inhalt und echte relative HTML-Links. Navigation funktioniert auch ohne JavaScript und unter einem Unterverzeichnis. `aria-current="page"` kennzeichnet die aktive Seite. Gemeinsame Navigation und Footer stehen direkt in den HTML-Dateien; bei Änderungen überall anpassen. Der Prüflauf kontrolliert ihre Konsistenz. Frühere Abschnittslinks werden auf die passende neue Seite weitergeleitet.
 
-- Vollständiger Unternehmensname, Rechtsform, verantwortliche Person, Anschrift, E-Mail, Telefonnummer und gegebenenfalls Register-/Steuerangaben.
-- Geprüfte Datenschutzerklärung zur tatsächlichen Hosting- und Formularverarbeitung. Aktuelle Texte sind deutlich gekennzeichnete Platzhalter, keine Rechtsberatung oder fertige Rechtstexte.
-- Bestätigte Fahrzeugdaten, Verfügbarkeit und tatsächliche Referenzgeschichten. Die Fotobeispiele behaupten keinen Verkauf oder Bestand.
-- Eigener Empfänger für Fahrzeugangebote und Bilder. Der Versand ist absichtlich deaktiviert; die Vorschau prüft Eingaben und zeigt ausdrücklich, dass nichts gesendet wurde.
+`dist/styles.css` und `dist/app.js` sind gemeinsam. Es gibt kein Framework und keinen erforderlichen Build-Schritt. Der vorhandene Einstieg im Repository-Hauptordner bleibt bestehen.
 
-## Formular anschließen
+## Bilderring
 
-In `dist/config.js` `formEndpoint` auf den eigenen HTTPS-Endpunkt setzen und `legalReady` erst nach Einbau der echten Datenschutzerklärung auf `true` setzen. Die rechtlichen Texte stehen in `dist/app.js` unter `legalContent`; den Text zur deaktivierten Vorschau dabei aktualisieren.
+Die Fotokarten werden als flacher, räumlicher Ring angeordnet. Scrollstrecke steuert den Winkel: schnelleres Scrollen erzeugt schnellere Rotation, Stillstand stoppt sie sofort. Kein Autoplay und keine permanente Animationsschleife. Passive Scroll-Listener, Resize-/IntersectionObserver und maximal ein requestAnimationFrame je Eingabe bündeln die Arbeit; außerhalb des sichtbaren Bereichs dreht der Ring nicht. Es werden nur CSS-Transforms aktualisiert.
 
-Der Endpunkt nimmt `multipart/form-data` mit folgenden Feldern an: `vehicleType`, `manufacturer`, `model`, `year`, `mileage`, `location`, `condition`, `price`, `description`, `firstName`, `lastName`, `email`, `phone`, `consent` und wiederholtem `photos`-Feld. Bilder sind optional, höchstens 10 Dateien, je 10 MB, JPEG/PNG/WebP. Ein erfolgreicher HTTP-Status und JSON `{"ok":true}` bestätigen den tatsächlichen Eingang und schalten die Erfolgsansicht frei. Andere Antworten, Netzwerkfehler und Zeitüberschreitungen zeigen einen Fehler bei erhaltenen Eingaben. Es sind keine Zugangsdaten im Frontend vorgesehen.
+Touch-/Mausziehen sowie Pfeilbuttons und Tastatur sind alternative Bedienelemente. Scrollbewegung lässt sich pausieren. `prefers-reduced-motion` schaltet sie automatisch ab; manuelles Weiterschalten bleibt möglich. Alle Fotos sind auch in der Bildansicht zugänglich. Ohne JavaScript bleibt eine horizontal scrollbar dargestellte Bilderreihe.
 
-Der Empfänger muss dieselben Eingaben serverseitig prüfen, Dateityp und Größe anhand der Inhalte prüfen, Missbrauch begrenzen und die tatsächliche Speicherung/Zustellung bestätigen. Bei einem anderen Ursprung ist eine passende CORS-Freigabe für den Website-Ursprung erforderlich. Nutzerdaten oder geheime Schlüssel gehören nicht in `config.js`.
+Die neuen Aufnahmen heißen `porsche-weiss` und `porsche-silber`, jeweils mit 640/1440-WebP-Varianten. Originalaufnahmen bleiben unverändert. Die zwei Kreidler-Bilder sind vom Nutzer freigegebene KI-Visualisierungen und werden entsprechend gekennzeichnet. Fahrzeugbilder sind keine Behauptung eines aktuellen Verkaufsbestands. Es wurden keine Gründungsjahre, Referenzzahlen oder persönlichen Biografien erfunden.
 
-## Inhalte und Gestaltung
+## E-Mail-Anfragen
 
-- `dist/index.html`: Inhalte, Navigation, Formular, Metadaten.
-- `dist/styles.css`: Gestaltung, mobile Ansichten, reduzierte Bewegung.
-- `dist/app.js`: Ansichten, Galerien, Formularprüfung, Bildauswahl, optionales WebMCP.
-- `dist/assets`: optimierte Originalbilder und lokal gespeicherte Schriften.
-- `scripts/prepare_assets.py`: reproduzierbare Bildoptimierung. Originaldateien werden nicht verändert. Das Logo wird nur um weiße Außenränder beschnitten.
+Empfänger: **thieltrading@web.de**. Versand über FormSubmit als nativer `multipart/form-data`-POST mit Spamschutz; keine SMTP-Zugangsdaten, keine eigene Datenbank, kein erforderliches Dashboard. Die Einrichtung und Grenzen stehen in [FORMULAR-EINRICHTEN.md](FORMULAR-EINRICHTEN.md).
 
-Die Schriften Barlow Condensed, DM Sans und Cormorant Garamond stammen aus Google Fonts und werden lokal ausgeliefert. Der Abschnitt „Jeder Zustand. Zurück auf die Straße.“ zwischen 03 und 04 verwendet zwei vom Nutzer freigegebene KI-Bearbeitungen seines Kreidler-Fotos. Sie zeigen mögliche Fahrzeugzustände und sind als KI-Visualisierung gekennzeichnet. Alle übrigen Fahrzeugbilder sind bereitgestellte Originalaufnahmen.
+Die Website speichert keine Formularangaben dauerhaft. FormSubmit hält Textanfragen laut Dokumentation 30 Tage vor; die E-Mail verbleibt im Empfängerpostfach. Die vorhandenen rechtlichen Platzhalter müssen zum tatsächlichen Betrieb vervollständigt werden.
+
+## Prüfung
+
+`node scripts/check.mjs` prüft sämtliche Seiten, Hauptnavigation, aktive Seiten, lokale Links und Anker, Bildquellen, Galeriebilder, Schriftdateien, IDs, Metadaten, JavaScript-Syntax, reduzierte Bewegung sowie die Formular-Konfiguration. Der Prüflauf sendet keine Anfrage und bestätigt keinen E-Mail-Eingang.
+
+Zusätzlich im Browser prüfen: Navigation/Zurück/Neuladen, mobile Ansichten, Bilderring (Scrollen, Stillstand, Pause, Pfeile), Bilddialog, Zustandsregler, Formularfehler, Dateiannahme/Entfernung/Größenlimit. Den echten Versand nach der Empfängeraktivierung manuell prüfen.
+
+Berücksichtigt: [Vercel Web Design Guidelines Skill](https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md) und [Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md), insbesondere semantische Links, Tastatur-/Touchalternativen, Fokus, Formularbeschriftungen, reduzierte Bewegung und Bildabmessungen.

@@ -69,3 +69,174 @@ html{color-scheme:light;scroll-padding-top:110px}h1,h2,h3{text-wrap:balance}p{te
 .hero-top{min-height:18px}
 @media(max-width:1100px){.header::before{inset-inline:16px}.desktop-nav{font-size:15px}}
 @media(max-width:600px){.header::before{inset-inline:8px;border-radius:34px}.hero-top{min-height:16.5px}}
+
+/* Shared water-glass controls. Explicit variants keep the material consistent
+   with bestand.css without changing image buttons, links or layout metrics. */
+:root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+  .gallery-controls button, .photo-preview button, .stock-filters button,
+  .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow) {
+  --glass-ink: #242420;
+  --glass-fill: rgba(244, 243, 237, .86);
+  --glass-top: rgba(255, 255, 255, .82);
+  --glass-bottom: rgba(204, 202, 193, .24);
+  --glass-edge: rgba(255, 255, 255, .88);
+  --glass-shade: rgba(66, 61, 48, .16);
+  --glass-shadow-y: 7px;
+  --glass-shadow-blur: 15px;
+  --glass-glint: .72;
+  --glass-glint-x: 0px;
+  --glass-glint-y: 0px;
+  --glass-overhang: 0px;
+  isolation: isolate;
+  border-radius: 999px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--glass-ink);
+  box-shadow: none;
+  translate: 0 0;
+  scale: 1;
+  transition: translate .32s cubic-bezier(.2, .7, .3, 1),
+    scale .32s cubic-bezier(.2, .7, .3, 1);
+}
+
+/* Leave the existing absolute positioning of close and gallery arrows intact. */
+:root :is(.button, .menu-toggle, .gallery-controls button, .stock-filters button,
+  .stock-details-button, .stock-contact-toggle) {
+  position: relative;
+}
+:root :is(.button, .button.red, .button.outline):is(:hover, :active, :disabled),
+:root .button {
+  transform: none;
+}
+
+:root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+  .gallery-controls button, .photo-preview button, .stock-filters button,
+  .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow)::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(0px - var(--glass-overhang));
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(158deg, var(--glass-top), transparent 48%,
+    var(--glass-bottom)), var(--glass-fill);
+  box-shadow: 0 var(--glass-shadow-y) var(--glass-shadow-blur) -5px var(--glass-shade),
+    0 2px 4px -2px rgba(42, 38, 29, .16),
+    inset 0 1px 1px var(--glass-edge),
+    inset 0 -2px 3px rgba(83, 78, 63, .12),
+    inset 2px 0 4px rgba(255, 255, 255, .46);
+  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+  backdrop-filter: blur(12px) saturate(1.12);
+  transition: box-shadow .32s ease;
+}
+
+:root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+  .gallery-controls button, .photo-preview button, .stock-filters button,
+  .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow)::after {
+  content: '';
+  position: absolute;
+  inset: 1px calc(1px - var(--glass-overhang));
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid var(--glass-edge);
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 18% 0%, rgba(255, 255, 255, .8),
+    rgba(255, 255, 255, .16) 36%, transparent 68%);
+  box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .65);
+  opacity: var(--glass-glint);
+  transform: translate(var(--glass-glint-x), var(--glass-glint-y));
+  transition: transform .32s ease, opacity .32s ease;
+}
+
+/* A quiet rose tint retains the hierarchy of the primary actions. */
+:root .button.red {
+  --glass-ink: #801d27;
+  --glass-fill: rgba(239, 216, 211, .88);
+  --glass-top: rgba(255, 250, 248, .9);
+  --glass-bottom: rgba(190, 86, 92, .14);
+  --glass-shade: rgba(106, 37, 38, .2);
+}
+:root .stock-filters button[aria-pressed="true"] {
+  --glass-ink: #fff;
+  --glass-fill: rgba(40, 42, 38, .96);
+  --glass-top: rgba(118, 121, 110, .35);
+  --glass-bottom: rgba(10, 14, 10, .3);
+  --glass-edge: rgba(255, 255, 255, .46);
+  --glass-glint: .2;
+  --glass-hover-glint: .28;
+}
+
+/* Compact controls keep their hit areas. The menu's decorative overhang
+   does not move the logo or navigation. */
+:root .menu-toggle { --glass-overhang: 10px; }
+:root :is(.gallery-controls button, .photo-preview button) { border-radius: 12px; }
+:root .stock-details-button { padding-inline: 18px; }
+
+@media (hover: hover) and (pointer: fine) {
+  :root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+    .gallery-controls button, .photo-preview button, .stock-filters button,
+    .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow):hover:not(:disabled):not([aria-disabled="true"]) {
+    --glass-shadow-y: 10px;
+    --glass-shadow-blur: 19px;
+    --glass-glint: var(--glass-hover-glint, .94);
+    --glass-glint-x: .4px;
+    --glass-glint-y: -.5px;
+    translate: 0 -1px;
+    scale: 1.018 1.028;
+  }
+}
+
+:root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+  .gallery-controls button, .photo-preview button, .stock-filters button,
+  .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow):active:not(:disabled):not([aria-disabled="true"]) {
+  --glass-shadow-y: 2px;
+  --glass-shadow-blur: 6px;
+  --glass-glint-y: .5px;
+  translate: 0 1px;
+  scale: .985 .97;
+}
+
+:root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+  .gallery-controls button, .photo-preview button, .stock-filters button,
+  .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow):focus-visible {
+  outline: 3px solid #981b27;
+  outline-offset: 5px;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .95);
+}
+:root .menu-toggle:focus-visible { outline-offset: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+    .gallery-controls button, .photo-preview button, .stock-filters button,
+    .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow) {
+    translate: none !important;
+    scale: none !important;
+    transition: none !important;
+  }
+  :root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+    .gallery-controls button, .photo-preview button, .stock-filters button,
+    .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow)::before,
+  :root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+    .gallery-controls button, .photo-preview button, .stock-filters button,
+    .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow)::after {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+    .gallery-controls button, .photo-preview button, .stock-filters button,
+    .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow) {
+    background: ButtonFace;
+    color: ButtonText;
+    outline: 1px solid ButtonText;
+  }
+  :root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+    .gallery-controls button, .photo-preview button, .stock-filters button,
+    .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow)::before,
+  :root :is(.button, .button.red, .button.outline, .menu-toggle, .dialog-close,
+    .gallery-controls button, .photo-preview button, .stock-filters button,
+    .stock-details-button, .stock-contact-toggle, .stock-close, .stock-image-arrow)::after { display: none; }
+  :root .stock-filters button[aria-pressed="true"] { outline: 2px solid Highlight; }
+}

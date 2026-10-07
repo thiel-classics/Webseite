@@ -255,15 +255,11 @@ html{color-scheme:light;scroll-padding-top:110px}h1,h2,h3{text-wrap:balance}p{te
   background: var(--paper);
   scroll-margin-top: 0;
 }
-.hero-scene.is-pinned {
-  min-height: calc(var(--scene-height) + clamp(240px, 44svh, 460px));
-}
 .hero-scene__stage {
   position: relative;
   min-height: var(--scene-height);
   isolation: isolate;
 }
-.hero-scene.is-pinned .hero-scene__stage { position: sticky; top: 0; }
 .hero-scene__atmosphere {
   position: absolute;
   inset: 0;
@@ -384,10 +380,10 @@ html{color-scheme:light;scroll-padding-top:110px}h1,h2,h3{text-wrap:balance}p{te
   background: #e7e2d9;
   box-shadow: 0 24px 36px -24px #3c332a59, 0 4px 9px -5px #3c332a33;
   transform: translate(-50%, -50%)
-    translate3d(var(--move-x, 0px), var(--move-y, 0px), calc(var(--depth) + var(--move-z, 0px)))
+    translate3d(0px, 0px, var(--depth))
     rotateX(var(--tilt-x)) rotateY(var(--tilt-y))
-    rotateZ(calc(var(--angle) + var(--turn, 0deg))) scale(var(--scale, 1));
-  opacity: calc(var(--base-opacity) * var(--fade, 1));
+    rotateZ(var(--angle));
+  opacity: var(--base-opacity);
   backface-visibility: hidden;
 }
 .hero-scene__card img { width: 100%; height: auto; }
@@ -418,7 +414,6 @@ html{color-scheme:light;scroll-padding-top:110px}h1,h2,h3{text-wrap:balance}p{te
 .hero-scene__card--front { left: 8%; top: 77%; width: 22%; --angle: -26deg; --depth: -160px; }
 .hero-scene__card--tank { left: 39%; top: 12%; width: 24%; --angle: 19deg; --depth: -190px; }
 .hero-scene__card--lifestyle { left: 96%; top: 19%; width: 23%; --angle: -17deg; --depth: -240px; }
-.hero-scene.is-inview .hero-scene__card { will-change: transform; }
 
 @media (max-width: 1100px) {
   .hero-scene__layout { width: calc(100% - 64px); }
@@ -458,7 +453,7 @@ html{color-scheme:light;scroll-padding-top:110px}h1,h2,h3{text-wrap:balance}p{te
     position: relative;
     left: auto; top: auto; width: 100%;
     --tilt-x: 0deg; --tilt-y: 0deg; --depth: 0px;
-    transform: translate3d(0, var(--move-y, 0px), 0) rotate(var(--angle));
+    transform: translate3d(0, 0, 0) rotate(var(--angle));
     opacity: 1;
     box-shadow: 0 15px 22px -15px #3c332a66, 0 2px 5px #3c332a14;
   }
@@ -469,12 +464,42 @@ html{color-scheme:light;scroll-padding-top:110px}h1,h2,h3{text-wrap:balance}p{te
   .hero-scene__card--ghost, .hero-scene__orb, .hero-scene__grid { display: none; }
   .hero-scene__orbit { left: -10%; top: 22%; width: 115%; height: 55%; opacity: .6; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .hero-scene.is-pinned { min-height: 0; }
-  .hero-scene.is-pinned .hero-scene__stage { position: relative; }
-  .hero-scene__card {
-    --move-x: 0px !important; --move-y: 0px !important; --move-z: 0px !important;
-    --turn: 0deg !important; --scale: 1 !important; --fade: 1 !important;
-    will-change: auto !important;
-  }
+
+/* A small editorial portrait in the existing history column. No motion. */
+body[data-page="ueber-uns"] .story-person { min-width: 0; }
+body[data-page="ueber-uns"] .story-person > .eyebrow { display: block; }
+body[data-page="ueber-uns"] .story-person__portrait {
+  width: min(240px, 100%);
+  margin: 28px 0 0;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, .85);
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .66), rgba(255, 255, 255, .22));
+  box-shadow: 0 10px 24px -18px rgba(35, 35, 35, .26),
+    0 0 0 1px rgba(80, 80, 80, .045),
+    inset 0 1px 1px rgba(255, 255, 255, .95),
+    inset 0 -1px 2px rgba(255, 255, 255, .5);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+body[data-page="ueber-uns"] .story-person__portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+body[data-page="ueber-uns"] .story-person__portrait figcaption {
+  margin: 10px 3px 4px;
+  color: #4d4d4d;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+}
+@media (max-width: 850px) {
+  body[data-page="ueber-uns"] .story-person__portrait { width: min(200px, 100%); margin-top: 22px; }
+}
+@media (max-width: 600px) {
+  body[data-page="ueber-uns"] .story-person__portrait { width: min(180px, 100%); margin-top: 18px; }
 }

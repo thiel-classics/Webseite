@@ -26,6 +26,18 @@ const galleries={
   moments:{title:'Bleibende Eindrücke',images:[['porsche-trio','Drei klassische Porsche vor einer Scheune'],['porsche-detail','Heck eines silbernen Porsche Carrera'],['porsche-duo','Zwei Porsche-Klassiker unter alten Bäumen']]},
   wheel:{title:'Unsere Welt der Klassiker',images:[['porsche-weiss','Weißer Porsche vor einem historischen Gebäude'],['puch','Blaues Puch X30 Turbo auf einer Herbstallee'],['porsche-detail','Silberner Porsche Carrera im Detail'],['porsche-silber','Silberner Porsche vor einem historischen Hof'],['puch-tank','Chromtank des Puch X30 Turbo'],['porsche-trio','Drei Generationen klassischer Porsche'],['lifestyle','Ein Abend mit einem roten Klassiker'],['porsche-front','Die zeitlose Front eines weißen Porsche']]}
 };
+// This additional collection is used only by the Automobile page.
+if (document.body.dataset.page === 'automobile') {
+  galleries['auto-editorial'] = {
+    title: 'Klassische Automobile',
+    images: [
+      ['auto-silber-hof', 'Silberner Porsche vor einem historischen Gebäude im Abendlicht'],
+      ['auto-porsche-duo', 'Silberner und grüner Porsche unter einem großen Baum'],
+      ['auto-porsche-weiss', 'Weißer Porsche vor einem historischen Gebäude'],
+      ['auto-porsche-pink', 'Pinkes Porsche-Heck mit schwarzem Heckflügel und Hinterrad']
+    ]
+  };
+}
 const galleryDialog=document.querySelector('#gallery-dialog');
 let galleryKey='porsche',galleryIndex=0,galleryTrigger=null;
 function renderGallery(){const gallery=galleries[galleryKey];const[file,alt]=gallery.images[galleryIndex];const img=galleryDialog.querySelector('.gallery-image');img.src=`./assets/${file}-1440.webp`;img.alt=alt;galleryDialog.querySelector('#gallery-title').textContent=gallery.title;galleryDialog.querySelector('.gallery-count').textContent=`${galleryIndex+1} / ${gallery.images.length}`;}
@@ -176,3 +188,54 @@ document.querySelectorAll('[data-condition-comparison]').forEach(stage=>{
   range.addEventListener('input',()=>update(range.value));
   update(range.value);
 });
+
+// Automobile headline: absolute scroll progress makes the two lines reversible.
+const automobileStage = document.querySelector('body[data-page="automobile"] [data-auto-stage]');
+if (automobileStage) {
+  const first = automobileStage.querySelector('[data-auto-line="first"]');
+  const second = automobileStage.querySelector('[data-auto-line="second"]');
+  const photo = automobileStage.querySelector('.auto-hero-photo');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const stacked = matchMedia('(max-width: 1000px)');
+  let frame = 0, visible = true, start = 0, distance = 1;
+  let firstTravel = 0, secondTravel = 0;
+  const clamp = value => Math.max(0, Math.min(1, value));
+  function render() {
+    frame = 0;
+    const progress = reduced.matches ? 0 : clamp((window.scrollY - start) / distance);
+    automobileStage.style.setProperty('--auto-first-x', `${(-firstTravel * progress).toFixed(2)}px`);
+    automobileStage.style.setProperty('--auto-second-x', `${(secondTravel * progress).toFixed(2)}px`);
+  }
+  function schedule() { if (!frame) frame = requestAnimationFrame(render); }
+  function measure() {
+    const rect = automobileStage.getBoundingClientRect();
+    const picture = photo.getBoundingClientRect();
+    start = Math.max(0, rect.top + window.scrollY - window.innerHeight * .28);
+    distance = Math.max(1, rect.height * .72);
+    const firstLeft = first.firstElementChild;
+    const firstRight = first.lastElementChild;
+    const secondLeft = second.firstElementChild;
+    const secondRight = second.lastElementChild;
+    const desired = stacked.matches ? Math.min(28, rect.width * .045) : Math.min(68, rect.width * .052);
+    // Preserve space around both words and the rotated photograph at every size.
+    const leftRoom = first.offsetLeft + firstLeft.offsetLeft - 8;
+    const rightRoom = rect.width - second.offsetLeft - secondRight.offsetLeft - secondRight.offsetWidth - 8;
+    const firstPhotoRoom = stacked.matches ? desired : first.offsetLeft + firstRight.offsetLeft - (picture.right - rect.left) - 10;
+    const secondPhotoRoom = stacked.matches ? desired : picture.left - rect.left - second.offsetLeft - secondLeft.offsetLeft - secondLeft.offsetWidth - 10;
+    firstTravel = Math.max(0, Math.min(desired, leftRoom, firstPhotoRoom));
+    secondTravel = Math.max(0, Math.min(desired, rightRoom, secondPhotoRoom));
+    schedule();
+  }
+  window.addEventListener('scroll', () => { if (visible && !reduced.matches) schedule(); }, { passive: true });
+  window.addEventListener('resize', measure, { passive: true });
+  window.addEventListener('pageshow', measure);
+  reduced.addEventListener('change', measure);
+  stacked.addEventListener('change', measure);
+  new ResizeObserver(measure).observe(automobileStage);
+  new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    if (visible) schedule();
+  }, { rootMargin: '100px' }).observe(automobileStage);
+  document.fonts.ready.then(measure);
+  measure();
+}

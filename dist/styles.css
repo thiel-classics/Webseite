@@ -503,3 +503,209 @@ body[data-page="ueber-uns"] .story-person__portrait figcaption {
 @media (max-width: 600px) {
   body[data-page="ueber-uns"] .story-person__portrait { width: min(180px, 100%); margin-top: 18px; }
 }
+
+/* Automobile editorial: scoped composition; all other pages retain their layout. */
+body[data-page="automobile"] .auto-editorial {
+  padding-top: 40px;
+  padding-bottom: 88px;
+  overflow: clip;
+}
+body[data-page="automobile"] .auto-editorial__intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+body[data-page="automobile"] .auto-editorial__intro > .eyebrow { padding-top: 5px; }
+body[data-page="automobile"] .auto-editorial__intro > p {
+  max-width: 310px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+body[data-page="automobile"] .auto-stage {
+  --auto-first-x: 0px;
+  --auto-second-x: 0px;
+  position: relative;
+  isolation: isolate;
+  width: min(1800px, calc(100% - 40px));
+  height: clamp(460px, 41vw, 650px);
+  margin-top: 24px;
+  margin-bottom: 64px;
+}
+body[data-page="automobile"] .auto-heading {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  z-index: 2;
+  pointer-events: none;
+  font-weight: 600;
+}
+body[data-page="automobile"] .auto-heading__line {
+  position: absolute;
+  inset-inline: 3%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  width: auto;
+  line-height: 1.04;
+  letter-spacing: -.035em;
+  white-space: nowrap;
+}
+body[data-page="automobile"] .auto-heading__line--first {
+  top: 34%;
+  font-family: var(--display);
+  font-size: clamp(80px, 9vw, 144px);
+  transform: translate3d(var(--auto-first-x), 0, 0);
+}
+body[data-page="automobile"] .auto-heading__line--second {
+  top: 59%;
+  font-family: var(--serif);
+  font-size: clamp(50px, 5.5vw, 90px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  transform: translate3d(var(--auto-second-x), 0, 0);
+}
+body[data-page="automobile"] .auto-hero-photo {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  width: min(35.5%, 560px);
+  margin: 0;
+  transform: translate(-50%, -50%) rotate(-8deg);
+}
+body[data-page="automobile"] .auto-image {
+  border: 1px solid #ffffffb3;
+  border-radius: 22px;
+  box-shadow: 0 22px 34px -25px #29261f66, 0 3px 9px #29261f0d;
+  background: var(--line);
+}
+body[data-page="automobile"] .auto-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+body[data-page="automobile"] .auto-hero-photo .auto-image {
+  box-shadow: 0 32px 38px -25px #29261f66, 0 5px 12px #29261f14;
+}
+body[data-page="automobile"] .auto-hero-photo img { transform: none; filter: none; }
+body[data-page="automobile"] .auto-image:focus-visible { outline-offset: 6px; }
+body[data-page="automobile"] .auto-collection {
+  display: grid;
+  grid-template-columns: .78fr 1.2fr 1fr;
+  gap: clamp(20px, 2.8vw, 42px);
+  align-items: start;
+  padding: clamp(24px, 3.4vw, 52px);
+  border: 1px solid #ffffffb3;
+  border-radius: 32px;
+  background: #ffffff66;
+}
+body[data-page="automobile"] .auto-collection > * { min-width: 0; }
+body[data-page="automobile"] .auto-collection__intro { padding-top: 46px; }
+body[data-page="automobile"] .auto-collection__intro h2 {
+  font-family: var(--display);
+  font-size: clamp(30px, 3.2vw, 48px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -.025em;
+  margin: 22px 0;
+}
+body[data-page="automobile"] .auto-collection p { color: var(--muted); font-size: 14px; }
+body[data-page="automobile"] .auto-collection__lead { margin: 0; }
+body[data-page="automobile"] .auto-collection__lead > .auto-image { transform: rotate(-3deg); }
+body[data-page="automobile"] .auto-collection__lead figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+body[data-page="automobile"] .auto-collection__lead .eyebrow { font-size: 9px; }
+body[data-page="automobile"] .auto-collection__side { padding-top: 38px; }
+body[data-page="automobile"] .auto-collection__pair {
+  display: grid;
+  grid-template-columns: 1.15fr .9fr;
+  gap: 16px;
+  align-items: start;
+}
+body[data-page="automobile"] .auto-collection__pair figure { margin: 0; }
+body[data-page="automobile"] .auto-collection__white { transform: rotate(4deg); }
+body[data-page="automobile"] .auto-collection__pink { transform: translateY(74px) rotate(-4deg); }
+body[data-page="automobile"] .auto-collection__pair .auto-image { border-radius: 16px; }
+body[data-page="automobile"] .auto-collection__pair .photo-plus {
+  width: 34px;
+  height: 34px;
+  right: 10px;
+  bottom: 10px;
+  font-size: 21px;
+}
+body[data-page="automobile"] .auto-collection__detail { margin-top: 86px; }
+body[data-page="automobile"] .auto-collection__detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+body[data-page="automobile"] .auto-collection__detail-top .eyebrow { font-size: 10px; }
+body[data-page="automobile"] .auto-collection__detail h3 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 2.7vw, 40px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  margin: 14px 0;
+}
+body[data-page="automobile"] .auto-collection__detail .text-link { margin-top: 16px; }
+
+@media (max-width: 1000px) {
+  body[data-page="automobile"] .auto-editorial { padding-top: 28px; padding-bottom: 64px; }
+  body[data-page="automobile"] .auto-stage {
+    width: calc(100% - 64px);
+    height: clamp(500px, 78vw, 780px);
+    margin-top: 36px;
+    margin-bottom: 44px;
+  }
+  body[data-page="automobile"] .auto-heading__line {
+    inset-inline: 16px;
+    justify-content: center;
+    gap: .18em;
+  }
+  body[data-page="automobile"] .auto-heading__line--first { top: 0; font-size: clamp(66px, 11vw, 96px); }
+  body[data-page="automobile"] .auto-heading__line--second { top: auto; bottom: 0; font-size: clamp(44px, 7.1vw, 68px); }
+  body[data-page="automobile"] .auto-hero-photo { width: 58%; top: 50%; transform: translate(-50%, -50%) rotate(-6deg); }
+  body[data-page="automobile"] .auto-collection { grid-template-columns: 1.2fr 1fr; gap: 32px; }
+  body[data-page="automobile"] .auto-collection__intro { grid-column: 1 / -1; padding-top: 0; max-width: 460px; }
+  body[data-page="automobile"] .auto-collection__intro h2 { font-size: 44px; margin-block: 16px; }
+  body[data-page="automobile"] .auto-collection__side { padding-top: 32px; }
+  body[data-page="automobile"] .auto-collection__pair { gap: 10px; }
+  body[data-page="automobile"] .auto-collection__pink { transform: translateY(46px) rotate(-4deg); }
+  body[data-page="automobile"] .auto-collection__detail { margin-top: 55px; }
+  body[data-page="automobile"] .auto-collection__detail .text-link { gap: 10px; font-size: 13px; }
+}
+@media (max-width: 600px) {
+  body[data-page="automobile"] .auto-editorial { padding-top: 22px; padding-bottom: 48px; }
+  body[data-page="automobile"] .auto-editorial__intro { display: block; }
+  body[data-page="automobile"] .auto-editorial__intro > p { margin-top: 14px; max-width: 320px; font-size: 13px; }
+  body[data-page="automobile"] .auto-stage { width: calc(100% - 40px); height: clamp(380px, 112vw, 620px); margin-top: 28px; margin-bottom: 36px; }
+  body[data-page="automobile"] .auto-heading__line { inset-inline: 8px; }
+  body[data-page="automobile"] .auto-heading__line--first { font-size: clamp(44px, 12.6vw, 68px); }
+  body[data-page="automobile"] .auto-heading__line--second { font-size: clamp(29px, 8.7vw, 46px); }
+  body[data-page="automobile"] .auto-hero-photo { width: 84%; }
+  body[data-page="automobile"] .auto-image { border-radius: 18px; }
+  body[data-page="automobile"] .auto-collection { display: block; padding: 24px; border-radius: 24px; }
+  body[data-page="automobile"] .auto-collection__intro { margin-bottom: 32px; }
+  body[data-page="automobile"] .auto-collection__intro h2 { font-size: 38px; }
+  body[data-page="automobile"] .auto-collection__lead > .auto-image { transform: rotate(-2deg); }
+  body[data-page="automobile"] .auto-collection__side { padding-top: 32px; }
+  body[data-page="automobile"] .auto-collection__pair { gap: 16px; }
+  body[data-page="automobile"] .auto-collection__white { transform: rotate(2deg); }
+  body[data-page="automobile"] .auto-collection__pink { transform: translateY(28px) rotate(-2deg); }
+  body[data-page="automobile"] .auto-collection__detail { margin-top: 46px; }
+  body[data-page="automobile"] .auto-collection__detail h3 { font-size: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="automobile"] .auto-heading__line { transform: none; }
+}
